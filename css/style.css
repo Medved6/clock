@@ -1,0 +1,17 @@
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+body #container {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  height: 100%;
+  background: #fff;
+  background: -moz-linear-gradient(white, #cccccc);
+  background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#cccccc), to(white));
+  background: -webkit-linear-gradient(white, #cccccc);
+}

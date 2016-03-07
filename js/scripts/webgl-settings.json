@@ -1,0 +1,17 @@
+{
+	"renderer": {
+		"type": "WebGlRenderer",
+		"settings" : {
+			"antialiasing" : true,
+			"alpha" : true
+		}
+	},
+	"camera": {
+		"type" : "PerspectiveCamera",
+		"settings" : {
+			"fov"  : 75,
+			"near" : 0.1,
+			"far"  : 1000
+		}
+	}
+}

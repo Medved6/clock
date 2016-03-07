@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Clock</title>
+
+	<style>
+		
+		*{
+			margin:0;
+		}
+
+		body{
+			/*background: #FCFFE2;*/
+			background: black;
+			overflow: hidden;
+		}
+	</style>
+
+</head>
+<body>
+	
+	<div id="webgl-canvas"></div>
+
+
+	<script type="x-shader/x-vertex" id="vertex-shader">
+
+		attribute float size;
+		attribute float move;
+		attribute vec3 customColor;
+		uniform float time;
+
+
+		varying vec3 vColor;
+
+		void main() {
+
+			vColor = customColor;
+
+			vec4 newPosition = modelViewMatrix * vec4(position,1.0);
+
+
+			float frequency = 0.001;
+			float amplitude = 0.35;
+
+			newPosition.y += sin(newPosition.x * 9.0 + time * frequency) * amplitude;
+			/*newPosition.y += sin(newPosition.x * 8.33 - time * frequency) * amplitude;
+			/*newPosition.y += sin(newPosition.x * 9.5 + time * frequency) * amplitude;*/
+
+			newPosition.x += sin(newPosition.z * 9.0 + time * frequency) * amplitude;
+			/*newPosition.x += sin(newPosition.z * 9.0 - time * frequency) * amplitude;
+			/*newPosition.x += sin(newPosition.z * 10.5 + time * frequency) * amplitude;*/
+
+			newPosition.z += sin(newPosition.y * 9.0 + time * frequency) * amplitude;
+			/*newPosition.z += sin(newPosition.y * 9.0 + time * frequency) * amplitude;
+			/*newPosition.z += sin(newPosition.y * 9.0 - time * frequency) * amplitude;
+			newPosition.z += sin(newPosition.y * 10.5 + time * frequency) * amplitude;*/
+
+
+
+
+			gl_PointSize = size * (30.0 / length( newPosition.xyz ));
+
+			gl_Position = projectionMatrix * newPosition;
+
+
+		}
+
+	</script>
+	<script type="x-shader/x-fragment" id="fragment-shader">
+		
+
+		varying vec3 vColor;
+
+		uniform vec3 color;
+		uniform sampler2D texture;
+
+
+		void main() {
+
+			gl_FragColor = vec4( color * color, 1.0 );
+
+			//gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
+
+			 gl_FragColor = gl_FragColor * texture2D(texture,gl_PointCoord);
+
+			//if ( gl_FragColor.a < 0.1 ) discard;
+
+		}
+
+	</script>
+
+
+	<script src="js/lib/dat.gui.min.js"></script>
+	<script src="js/lib/stats.min.js"></script>
+	<script src="js/lib/three.js"></script>
+	<script src="js/lib/easie.js"></script>
+	<script src="js/scripts/webgl-environment.js"></script>
+	<script src="js/scripts/LoadMesh.js"></script>
+	<script src="js/scripts/ParticleSysteme.js"></script>
+	<script src="js/scripts/Number.js"></script>
+	<script src="js/scripts/World.js"></script>
+	<script src="js/scripts/app.js"></script>
+</body>
+</html>
